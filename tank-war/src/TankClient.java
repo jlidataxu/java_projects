@@ -16,6 +16,8 @@ public class TankClient {
 
 
  class MyFrame extends Frame {
+	 int x = 50;
+	 int y = 50;
 	 void launchFrame () {
 		 this.setLocation (100,100);
 		 this.setSize(600,400);
@@ -27,17 +29,37 @@ public class TankClient {
 			 }
 
 		 });
+		 new Thread(new PaintThread()).start();
 		 this.setVisible (true);
 		 this.setResizable (false);
-
+		 
 		}
 		
 		public void paint (Graphics g) {
 			Color c= g.getColor();
 			g.setColor(Color.red);
-			g.fillOval(50, 50, 30, 30);
+			g.fillOval(x, y, 30, 30);
 			g.setColor(c);
+			y += 5 ;
 			System.out.println("paint");
+			
+		}
+		
+		private class PaintThread implements Runnable {
+
+			@Override
+			public void run() {
+				while(true) {
+					repaint();
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
 			
 		}
 }
