@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -36,7 +38,7 @@ public class TankClient {
 		 new Thread(new PaintThread()).start();
 		 this.setVisible (true);
 		 this.setResizable (false);
-		 
+		 this.addKeyListener(new KeyMonitor());
 		}
 		
 		public void paint (Graphics g) {
@@ -44,8 +46,8 @@ public class TankClient {
 			g.setColor(Color.red);
 			g.fillOval(x, y, 30, 30);
 			g.setColor(c);
-			y += 5 ;
-			System.out.println("paint");
+			//y += 5 ;
+			//System.out.println("paint");
 			
 		}
 		
@@ -59,6 +61,30 @@ public class TankClient {
 			gOffScreen.fillRect(0, 0, GAME_WITDH, GAME_HEIGTH);
 			paint(gOffScreen);
 			g.drawImage(offScreenImage, 0, 0, null);
+		}
+		private class KeyMonitor extends KeyAdapter {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int key = e.getKeyCode();
+				switch(key) {
+				case KeyEvent.VK_RIGHT: 
+					x += 5;
+					break;
+				case KeyEvent.VK_LEFT: 
+					x -= 5;
+					break;
+				case KeyEvent.VK_DOWN: 
+					y += 5;
+					break;
+				case KeyEvent.VK_UP: 
+					y -= 5;
+					break;
+				}
+			}
+			
+			
 		}
 		private class PaintThread implements Runnable {
 
