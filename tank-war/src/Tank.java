@@ -58,7 +58,6 @@ public class Tank {
 		g.setColor(Color.RED);
 		g.fillOval(x, y, 30, 30);
 		g.setColor(c);
-		locateDirection();
 		move();
 	}
 	
@@ -79,6 +78,30 @@ public class Tank {
 			bU = true;
 			break;
 		}
+		
+		locateDirection();
+	}
+	
+	
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		int key = e.getKeyCode();
+		switch(key) {
+		case KeyEvent.VK_RIGHT: 
+			bR = false;
+			break;
+		case KeyEvent.VK_LEFT: 
+			bL = false;
+			break;
+		case KeyEvent.VK_DOWN: 
+			bD = false;
+			break;
+		case KeyEvent.VK_UP: 
+			bU = false;
+			break;
+		}
+		
+		locateDirection();
 	}
 	
 	public void locateDirection() {
