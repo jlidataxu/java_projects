@@ -22,7 +22,9 @@ public class TankClient {
 	 public static final int GAME_WITDH = 800;
 	 public static final int GAME_HEIGTH = 600;
 	 Tank myTank = new Tank(50,50);
+	 Missile m = new Missile(50,50,Tank.Direction.R);
 	 Image offScreenImage = null;
+	 
 	 void launchFrame () {
 		 this.setLocation (100,100);
 		 this.setSize(GAME_WITDH,GAME_HEIGTH);
@@ -41,6 +43,7 @@ public class TankClient {
 		}
 		
 		public void paint (Graphics g) {
+			m.draw(g);
 			myTank.draw(g);
 		}
 		
