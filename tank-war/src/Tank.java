@@ -6,8 +6,11 @@ import java.awt.event.KeyEvent;
 public class Tank {
 	private static final int XSPEED = 5;
 	private static final int YSPEED = 5;
+	public static final int WIDTH = 30;
+	public static final int HEIGHT = 30;
 	private int x;
 	private int y;
+	TankClient tc;
 	
 	private boolean bU = false, bD = false, bL = false, bR = false;
 	enum Direction {R, RU, RD, L, LU, LD, U, D, STOP}
@@ -16,6 +19,11 @@ public class Tank {
 	public Tank(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public Tank(int x, int y, TankClient tc) {
+		this(x,y);
+		this.tc = tc;
 	}
 	
 	void move() {
@@ -56,7 +64,7 @@ public class Tank {
 	public void draw(Graphics g) {
 		Color c = g.getColor();
 		g.setColor(Color.RED);
-		g.fillOval(x, y, 30, 30);
+		g.fillOval(x, y, WIDTH, HEIGHT);
 		g.setColor(c);
 		move();
 	}
@@ -87,6 +95,9 @@ public class Tank {
 		// TODO Auto-generated method stub
 		int key = e.getKeyCode();
 		switch(key) {
+		case KeyEvent.VK_CONTROL:
+			tc.m = fire();
+			break;
 		case KeyEvent.VK_RIGHT: 
 			bR = false;
 			break;
@@ -104,6 +115,14 @@ public class Tank {
 		locateDirection();
 	}
 	
+	public Missile fire() {
+		int x = this.x + Tank.WIDTH/2 - Missile.WIDTH/2;
+		int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
+		
+		Missile m = new Missile(x ,y,dir);
+		return m;
+	}
+
 	public void locateDirection() {
 		if (bU && !bD && !bL && !bR) {
 			dir = Direction.U;

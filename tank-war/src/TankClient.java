@@ -8,23 +8,25 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 
-public class TankClient {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new MyFrame().launchFrame();
-	}
-	
-}
-
-
- class MyFrame extends Frame {
+ class TankClient extends Frame {
+	 /* member variables
+	  * constants: Game Width & Game Height
+	  * object instance: tank, missile
+	  * misc: offscreen image
+	  */
 	 public static final int GAME_WITDH = 800;
 	 public static final int GAME_HEIGTH = 600;
-	 Tank myTank = new Tank(50,50);
-	 Missile m = new Missile(50,50,Tank.Direction.R);
+	 Tank myTank = new Tank(50,50,this);
+	 public Missile m = null;
 	 Image offScreenImage = null;
 	 
+	 /* lanuchFrame method
+	  * 1) initialize frame parameters: size, location, background color, visible, resizable
+	  * 2) add event listener: a. window listener to close window b.key listener
+	  * 3) new a thread to repaint in every 100 mseconds
+	  *
+	  */
 	 void launchFrame () {
 		 this.setLocation (100,100);
 		 this.setSize(GAME_WITDH,GAME_HEIGTH);
@@ -42,8 +44,12 @@ public class TankClient {
 		 this.addKeyListener(new KeyMonitor());
 		}
 		
+	 	/* image painting
+	 	 * 1) paint method: paint tank and missile
+	 	 * 2) update method: update the whole image
+	 	 */
 		public void paint (Graphics g) {
-			m.draw(g);
+			if(m != null) m.draw(g);
 			myTank.draw(g);
 		}
 		
@@ -58,6 +64,14 @@ public class TankClient {
 			paint(gOffScreen);
 			g.drawImage(offScreenImage, 0, 0, null);
 		}
+		
+		public static void main(String[] args) {
+			new TankClient().launchFrame();
+		}
+		/* private classes
+		 * 1) KeyMonitor: use keyReleased and KeyPressed to control tank
+		 * 2) PaintThread: implement Runnable to repaint as a thread
+		 */
 		private class KeyMonitor extends KeyAdapter {
 
 			@Override
