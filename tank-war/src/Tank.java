@@ -170,11 +170,10 @@ public class Tank {
 	
 	
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		int key = e.getKeyCode();
 		switch(key) {
 		case KeyEvent.VK_CONTROL:
-			tc.m = fire();
+			fire();
 			break;
 		case KeyEvent.VK_RIGHT: 
 			bR = false;
@@ -198,6 +197,7 @@ public class Tank {
 		int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
 		
 		Missile m = new Missile(x ,y,ptDir);
+		tc.missiles.add(m);
 		return m;
 	}
 	
