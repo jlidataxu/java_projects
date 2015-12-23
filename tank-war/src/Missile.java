@@ -3,6 +3,13 @@ import java.awt.Graphics;
 
 
 public class Missile {
+	/* Member variables
+	 * 1. Postion: x, y and Size: Width and Height
+	 * 2. Tank.Direction
+	 * 3. Speed
+	 * 4. TankClient
+	 * 5. Boolean live or not
+	 */
 	public static final int XSPEED = 10;
 	public static final int YSPEED = 10;
 	public static final int WIDTH = 10;
@@ -10,13 +17,27 @@ public class Missile {
 	int x;
 	int y;
 	Tank.Direction dir;
+	boolean live = true;
+	TankClient tc;
 	
+	// Get method to check live or not
+	public boolean isLive() {
+		return live;
+	}
+	
+	// Constructor
 	public Missile(int x, int y, Tank.Direction dir) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
+	
+	public Missile(int x, int y, Tank.Direction dir, TankClient tc) {
+		this(x, y, dir);
+		this.tc = tc;
+	}
+	// Draw method
 	public void draw(Graphics g) {
 		Color c = g.getColor();
 		g.setColor(Color.white);
@@ -58,6 +79,10 @@ public class Missile {
 			break;
 		}
 		
+		if (x < 0 || y < 0 || x > tc.GAME_WITDH || y > tc.GAME_HEIGTH) {
+			this.live = false;
+			tc.missiles.remove(this);
+		}
 	}
 	
 }

@@ -135,6 +135,12 @@ public class Tank {
 		if(this.dir != Direction.STOP) {
 			this.ptDir = this.dir;
 		}
+		
+		// prevent tank moving outside of frame
+		if(x < 0) x = 0;
+		if(y < 30) y = 30;
+		if(x + this.WIDTH > tc.GAME_WITDH) x = tc.GAME_WITDH - this.WIDTH;
+		if(y + this.HEIGHT > tc.GAME_HEIGTH) y = tc.GAME_HEIGTH - this.HEIGHT;
 	}
 	
 	
@@ -196,7 +202,7 @@ public class Tank {
 		int x = this.x + Tank.WIDTH/2 - Missile.WIDTH/2;
 		int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
 		
-		Missile m = new Missile(x ,y,ptDir);
+		Missile m = new Missile(x ,y,ptDir, this.tc);
 		tc.missiles.add(m);
 		return m;
 	}

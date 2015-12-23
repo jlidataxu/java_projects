@@ -53,6 +53,11 @@ import java.util.List;
 			
 			for(int i = 0; i < missiles.size(); i++) {
 				Missile m = missiles.get(i);
+				/*if (!m.isLive()) {
+					missiles.remove(m);
+				} else {
+					m.draw(g);
+				}*/
 				m.draw(g);
 			}
 			myTank.draw(g);
