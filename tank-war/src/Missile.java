@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 
 public class Missile {
@@ -48,6 +49,10 @@ public class Missile {
 	}
 	
 	private void move() {
+		if (!live) {
+			tc.missiles.remove(this);
+			return;
+		}
 		switch (dir) {
 		case L:
 			x -= XSPEED;
@@ -81,8 +86,21 @@ public class Missile {
 		
 		if (x < 0 || y < 0 || x > tc.GAME_WITDH || y > tc.GAME_HEIGTH) {
 			this.live = false;
-			tc.missiles.remove(this);
 		}
+		
+		
+	}
+	// deal with collision
+	public Rectangle getRect() {
+		return new Rectangle(x,y,WIDTH, HEIGHT);
 	}
 	
+	public boolean hitTank(Tank t) {
+		if (this.getRect().intersects(t.getRect()) && t.isLive()) {
+			t.setLive(false);
+			this.live = false;
+			return true;
+		}
+		return false;
+	}
 }

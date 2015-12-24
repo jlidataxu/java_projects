@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 /* Tank class 
@@ -42,8 +43,15 @@ public class Tank {
 	Direction ptDir = Direction.R;
 	
 	//6. Good or evil tanks
-	private boolean good; 
+	private boolean good;
 	
+	//7. boolean live
+	private boolean live = true;
+	
+	
+
+	
+
 	// Constructor
 	public Tank(int x, int y, boolean good) {
 		this.x = x;
@@ -63,6 +71,7 @@ public class Tank {
 	 *  3. run move() method to update location of tank object
 	 */
 	public void draw(Graphics g) {
+		if(!live) return;
 		Color c = g.getColor();
 		// use good boolean value to draw using different colors
 		if (good) {
@@ -241,6 +250,18 @@ public class Tank {
 		} 
 			
 	}
+	// deal with collision
+	public Rectangle getRect() {
+		return new Rectangle(x,y,WIDTH, HEIGHT);
+	}
 	
+	// set live value
+	public void setLive(boolean live) {
+		this.live = live;
+	}
+	
+	public boolean isLive() {
+		return live;
+	}
 
 }
