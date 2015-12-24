@@ -51,7 +51,6 @@ import java.util.List;
 	 	 * 2) update method: update the whole image
 	 	 */
 		public void paint (Graphics g) {
-			
 			for(int i = 0; i < missiles.size(); i++) {
 				Missile m = missiles.get(i);
 				/*if (!m.isLive()) {
@@ -60,6 +59,7 @@ import java.util.List;
 					m.draw(g);
 				}*/
 				m.draw(g);
+				m.hitTank(enemyTank);
 			}
 			myTank.draw(g);
 			enemyTank.draw(g);
