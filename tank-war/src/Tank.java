@@ -41,15 +41,19 @@ public class Tank {
 	private Direction dir = Direction.STOP;
 	Direction ptDir = Direction.R;
 	
+	//6. Good or evil tanks
+	private boolean good; 
+	
 	// Constructor
-	public Tank(int x, int y) {
+	public Tank(int x, int y, boolean good) {
 		this.x = x;
 		this.y = y;
+		this.good = good;
 	}
 	
 	//Overloaded Constructor 
-	public Tank(int x, int y, TankClient tc) {
-		this(x,y);
+	public Tank(int x, int y, boolean good,TankClient tc) {
+		this(x,y, good);
 		this.tc = tc;
 	}
 	/*
@@ -60,7 +64,12 @@ public class Tank {
 	 */
 	public void draw(Graphics g) {
 		Color c = g.getColor();
-		g.setColor(Color.RED);
+		// use good boolean value to draw using different colors
+		if (good) {
+			g.setColor(Color.RED);
+		} else {
+			g.setColor(Color.BLUE);
+		}
 		g.fillOval(x, y, WIDTH, HEIGHT);
 		g.setColor(c);
 		switch (ptDir) {
