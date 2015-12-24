@@ -18,7 +18,8 @@ import java.util.List;
 	  */
 	 public static final int GAME_WITDH = 800;
 	 public static final int GAME_HEIGTH = 600;
-	 Tank myTank = new Tank(50,50,this);
+	 Tank myTank = new Tank(50,50,true,this);
+	 Tank enemyTank = new Tank(100,100, false, this);
 	 List<Missile> missiles = new ArrayList<Missile> ();
 	 Image offScreenImage = null;
 	 
@@ -61,6 +62,7 @@ import java.util.List;
 				m.draw(g);
 			}
 			myTank.draw(g);
+			enemyTank.draw(g);
 		}
 		
 		public void update(Graphics g) {
